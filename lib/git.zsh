@@ -10,6 +10,11 @@ function __git_prompt_git() {
 }
 
 function git_prompt_info() {
+  if [ ! -z ${ZSH_THEME_GIT_PROMPT_DIR_ONLY} ] && \
+    [ "${PWD##${ZSH_THEME_GIT_PROMPT_DIR_ONLY:-}}" = "${PWD}" ]; then
+    return 0
+  fi
+
   # If we are on a folder not tracked by git, get out.
   # Otherwise, check for hide-info at global and local repository level
   if ! __git_prompt_git rev-parse --git-dir &> /dev/null \
